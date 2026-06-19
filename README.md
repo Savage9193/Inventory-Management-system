@@ -116,7 +116,7 @@ https://hub.docker.com/r/taughher465/inventory-frontend
 
 - FastAPI
 - SQLAlchemy
-- PostgreSQL
+- PostgreSQL(Neon)
 - Alembic
 - Pydantic
 - JWT Authentication
