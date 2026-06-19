@@ -37,6 +37,8 @@ ROLE_PERMISSIONS: dict[UserRole, set[Permission]] = {
     UserRole.STAFF: {
         Permission.READ_PRODUCTS,
         Permission.CREATE_ORDERS,
+        Permission.VIEW_DASHBOARD,
+        Permission.MANAGE_CUSTOMERS,
     },
 }
 

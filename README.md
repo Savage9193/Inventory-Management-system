@@ -1,88 +1,240 @@
-# Inventory & Order Management System
+# Inventory Management System
 
-Production-ready full-stack inventory and order management application.
+A full-stack Inventory Management System built using React, TypeScript, FastAPI, PostgreSQL, JWT Authentication, Docker, and Docker Compose.
 
-## Tech Stack
+## Live Application
 
-- **Backend:** Python, FastAPI, SQLAlchemy 2.0, Alembic, PostgreSQL, JWT
-- **Frontend:** React, TypeScript, Vite, React Query, TailwindCSS, Shadcn-style UI
-- **Infrastructure:** Docker, Docker Compose
+### Frontend
+https://inventory-management-system-two-amber.vercel.app
+
+### Backend API
+https://inventory-management-system-pf3p.onrender.com
+
+### API Documentation
+https://inventory-management-system-pf3p.onrender.com/docs
+
+### GitHub Repository
+https://github.com/Savage9193/Inventory-Management-system
+
+### Docker Images
+
+Backend Image:
+https://hub.docker.com/r/taughher465/inventory-backend
+
+Frontend Image:
+https://hub.docker.com/r/taughher465/inventory-frontend
+
+---
 
 ## Features
 
-- Product, Customer, and Order management
-- Inventory tracking with audit trail
-- JWT authentication with role-based access (Admin, Manager, Staff)
-- Dashboard analytics with charts
-- Atomic order transactions with stock validation
+### Authentication & Authorization
 
-## Quick Start (Docker)
+- JWT Authentication (Access & Refresh Tokens)
+- Secure Password Hashing
+- Role-Based Access Control (RBAC)
+- Protected Routes
+- Token Refresh Mechanism
+
+### User Roles
+
+#### Admin
+- Full System Access
+- Dashboard Access
+- Product Management
+- Customer Management
+- Inventory Management
+- Order Management
+
+#### Manager
+- Dashboard Access
+- Product Management
+- Customer Management
+- Inventory Management
+- Order Management
+
+#### Staff
+- Dashboard Access
+- Product Viewing
+- Order Creation
+- Order Management
+
+### Dashboard
+
+- Total Products Overview
+- Total Customers Overview
+- Total Orders Overview
+- Inventory Statistics
+- Business Metrics Summary
+
+### Product Management
+
+- Create Products
+- Update Products
+- Soft Delete Products
+- Product Listing
+- SKU Validation
+- Product Search & Filtering
+
+### Customer Management
+
+- Create Customers
+- Update Customers
+- Customer Listing
+- Customer Details View
+
+### Inventory Management
+
+- Track Inventory Levels
+- Update Stock Quantities
+- Low Stock Monitoring
+- Inventory Summary
+
+### Order Management
+
+- Create Orders
+- Manage Order Items
+- Automatic Stock Deduction
+- Order History Tracking
+- Insufficient Stock Validation
+
+---
+
+## Tech Stack
+
+### Frontend
+
+- React
+- TypeScript
+- React Router
+- TanStack Query
+- Axios
+- Tailwind CSS
+- ShadCN UI
+
+### Backend
+
+- FastAPI
+- SQLAlchemy
+- PostgreSQL
+- Alembic
+- Pydantic
+- JWT Authentication
+
+### DevOps
+
+- Docker
+- Docker Compose
+- Render
+- Vercel
+
+---
+
+## Project Structure
+
+```text
+Inventory-Management-System
+│
+├── backend
+├── frontend
+├── docker-compose.yml
+├── README.md
+└── .env.example
+```
+
+## Environment Variables
+
+### Backend (.env)
+
+```env
+DATABASE_URL=postgresql://username:password@host/database
+SECRET_KEY=your-secret-key
+ACCESS_TOKEN_EXPIRE_MINUTES=30
+REFRESH_TOKEN_EXPIRE_DAYS=7
+CORS_ORIGINS=http://localhost:5173
+```
+
+### Frontend (.env)
+
+```env
+VITE_API_URL=http://localhost:8000
+```
+
+---
+
+## Local Setup
+
+### Clone Repository
+
+```bash
+git clone https://github.com/Savage9193/Inventory-Management-system.git
+cd Inventory-Management-system
+```
+
+### Backend Setup
+
+```bash
+cd backend
+
+python -m venv venv
+
+# Windows
+venv\Scripts\activate
+
+pip install -r requirements.txt
+
+alembic upgrade head
+
+uvicorn app.main:app --reload
+```
+
+Backend:
+http://localhost:8000
+
+Swagger Docs:
+http://localhost:8000/docs
+
+### Frontend Setup
+
+```bash
+cd frontend
+
+npm install
+
+npm run dev
+```
+
+Frontend:
+http://localhost:5173
+
+---
+
+## Docker Setup
+
+Build and start containers:
 
 ```bash
 docker compose up --build
 ```
 
-| Service  | URL                          |
-|----------|------------------------------|
-| Frontend | http://localhost:3000        |
-| Backend  | http://localhost:8000        |
-| API Docs | http://localhost:8000/docs   |
-| Postgres | localhost:5432               |
-
-Register the first user — they automatically become **Admin**.
-
-## Manual Setup
-
-### Prerequisites
-
-- Python 3.12+
-- Node.js 20+
-- PostgreSQL 16+
-
-### Backend
+Stop containers:
 
 ```bash
-cd backend
-cp .env.example .env
-# Edit .env with your settings
-
-python -m venv venv
-# Windows: venv\Scripts\activate
-# Linux/Mac: source venv/bin/activate
-
-pip install -r requirements.txt
-alembic upgrade head
-uvicorn app.main:app --reload --port 8000
+docker compose down
 ```
 
-### Frontend
+Application URLs:
 
-```bash
-cd frontend
-cp .env.example .env
-npm install
-npm run dev
-```
+Frontend:
+http://localhost:5173
 
-Frontend runs at http://localhost:5173
+Backend:
+http://localhost:8000
 
-## Environment Variables
+API Docs:
+http://localhost:8000/docs
 
-### Backend (`backend/.env`)
-
-| Variable | Description |
-|----------|-------------|
-| `DATABASE_URL` | PostgreSQL connection string |
-| `SECRET_KEY` | JWT signing key |
-| `ACCESS_TOKEN_EXPIRE_MINUTES` | Access token TTL |
-| `REFRESH_TOKEN_EXPIRE_DAYS` | Refresh token TTL |
-| `CORS_ORIGINS` | Comma-separated allowed origins |
-
-### Frontend (`frontend/.env`)
-
-| Variable | Description |
-|----------|-------------|
-| `VITE_API_URL` | Backend API base URL |
+---
 
 ## Running Tests
 
@@ -90,89 +242,66 @@ Frontend runs at http://localhost:5173
 
 ```bash
 cd backend
-pip install -r requirements.txt
-pytest --cov=app --cov-report=term-missing
+pytest -v
+```
+
+Result:
+
+```text
+8 Passed
+0 Failed
 ```
 
 ### Frontend
 
 ```bash
 cd frontend
-npm install
 npm test
 ```
 
-## API Endpoints
+Result:
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/api/v1/auth/register` | Register user |
-| POST | `/api/v1/auth/login` | Login |
-| POST | `/api/v1/auth/refresh` | Refresh token |
-| POST | `/api/v1/auth/logout` | Logout |
-| CRUD | `/api/v1/products` | Product management |
-| CRUD | `/api/v1/customers` | Customer management |
-| CRUD | `/api/v1/orders` | Order management |
-| GET | `/api/v1/inventory/history` | Stock history |
-| GET | `/api/v1/inventory/low-stock` | Low stock products |
-| GET | `/api/v1/dashboard` | Analytics |
+```text
+2 Passed
+0 Failed
+```
 
-## Role Permissions
-
-| Role | Permissions |
-|------|-------------|
-| Admin | Full access |
-| Manager | Products, Customers, Orders, Dashboard, Inventory |
-| Staff | Read products, Create orders |
+---
 
 ## Deployment
 
-### Backend
+### Backend (Render)
 
-Build and run the Docker image, or deploy to any platform supporting Python/FastAPI:
+https://inventory-management-system-pf3p.onrender.com
 
-```bash
-cd backend
-docker build -t inventory-backend .
-docker run -p 8000:8000 --env-file .env inventory-backend
-```
+### Frontend (Vercel)
 
-### Frontend
+https://inventory-management-system-two-amber.vercel.app
 
-```bash
-cd frontend
-npm run build
-# Deploy dist/ to any static host (Nginx, Vercel, S3, etc.)
-```
+---
 
-Set `VITE_API_URL` to your production API URL at build time.
+## Assignment Requirements Covered
 
-## Project Structure
+- JWT Authentication
+- Role-Based Access Control
+- PostgreSQL Database
+- FastAPI Backend
+- React Frontend
+- Docker Containerization
+- Docker Compose
+- Environment Variables
+- Backend Deployment
+- Frontend Deployment
+- Automated Testing
+- Public URLs
+- Docker Images
+- GitHub Repository
 
-```
-├── backend/
-│   ├── app/
-│   │   ├── api/v1/          # REST routes
-│   │   ├── core/            # Config, security, exceptions
-│   │   ├── database/        # DB session
-│   │   ├── models/          # SQLAlchemy models
-│   │   ├── schemas/         # Pydantic schemas
-│   │   ├── repositories/    # Data access
-│   │   ├── services/        # Business logic
-│   │   └── main.py
-│   ├── alembic/             # Migrations
-│   └── tests/
-├── frontend/
-│   └── src/
-│       ├── api/             # Axios client
-│       ├── components/      # UI components
-│       ├── contexts/        # Auth context
-│       ├── layouts/         # App layout
-│       ├── pages/           # Route pages
-│       └── types/           # TypeScript types
-└── docker-compose.yml
-```
+---
 
-## License
+## Author
 
-MIT
+**Mohd Shahvez Tyagi**
+
+GitHub:
+https://github.com/Savage9193
