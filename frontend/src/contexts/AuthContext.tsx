@@ -50,7 +50,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     canManageCustomers: hasRole("admin", "manager"),
     canManageOrders: hasRole("admin", "manager"),
     canCreateOrders: hasRole("admin", "manager", "staff"),
-    canViewDashboard: hasRole("admin", "manager"),
+    canViewDashboard: hasRole("admin", "manager", "staff"),
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

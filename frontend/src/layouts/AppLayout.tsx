@@ -9,7 +9,7 @@ const links = [
   { to: "/products", label: "Products", icon: Package, show: () => true },
   { to: "/customers", label: "Customers", icon: Users, show: (a: ReturnType<typeof useAuth>) => a.canManageCustomers },
   { to: "/orders", label: "Orders", icon: ShoppingCart, show: (a: ReturnType<typeof useAuth>) => a.canCreateOrders },
-  { to: "/inventory", label: "Inventory", icon: Warehouse, show: (a: ReturnType<typeof useAuth>) => a.canViewDashboard || a.canManageProducts },
+  { to: "/inventory", label: "Inventory", icon: Warehouse, show: (a: ReturnType<typeof useAuth>) => a.canManageProducts },
 ];
 
 export default function AppLayout() {
